@@ -1,57 +1,24 @@
 import 'package:get/get.dart';
-
+import 'package:refactoring_todolist/section/todolist/get_x/todolist_state.dart';
 
 class TodolistLogic extends GetxController {
-  //task 목록
-  List todoList = [
-    {
-      'done': true,
-      'task': 'X_할 일 1',
-    },
-    {
-      'done': false,
-      'task': 'X_할 일 2',
-    },
-    {
-      'done': false,
-      'task': 'X_할 일 3',
-    },
-    {
-      'done': false,
-      'task': 'X_할 일 4',
-    },
-    {
-      'done': false,
-      'task': 'X_할 일 5',
-    }
-  ];
+  final TodolistState todolistState = TodolistState();
 
   //task 추가
-  void addTodoList (String task) {
+  void addTodoList(String task) {
     if (task != '') {
-      todoList.add(
-        {
-          'done': false,
-          'task': task
-        }
-      );
-
-      update();
-    } 
+      todolistState.add(task);
+    }
   }
 
   //task 삭제
-  void removeTask (int index) {
-    todoList.removeAt(index);
-
-    update();
+  void removeTask(int index) {
+    todolistState.remove(index);
   }
 
   //check 변경
-  void changeDone (int index, bool value) {
-    todoList[index]['done'] = value;
-
-    update();
+  void changeDone(int index, value) {
+    todolistState.todolists[index] =
+        todolistState.todolists[index].copyWith(done: value);
   }
-
 }
