@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:refactoring_todolist/section/todolist/get_x/todolist_logic.dart';
+import 'package:refactoring_todolist/section/todolist/views/widgets/add_button.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class TodolistScreen extends StatefulWidget {
   const TodolistScreen({Key? key}) : super(key: key);
@@ -15,6 +17,10 @@ class TodolistScreenState extends State<TodolistScreen> {
     //위젯이 생성될 때 처음으로 호출되는 메서드(오직 한 번만 호출)
     super.initState();
   }
+
+  TextEditingController inputData = TextEditingController(); 
+  String inputTask = '';
+  
 
   @override
   Widget build(BuildContext context) {
@@ -43,11 +49,10 @@ class TodolistScreenState extends State<TodolistScreen> {
                       ),
 
                       child: Obx(() {
-                        //수정
                         return (ListView.builder(
                           padding: const EdgeInsets.only(bottom: 0),
                           shrinkWrap: true,
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: logic.todolistState.todolists.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
@@ -70,8 +75,7 @@ class TodolistScreenState extends State<TodolistScreen> {
                                           margin:
                                               const EdgeInsets.only(right: 20),
                                           child: Checkbox(
-                                            value: logic.todolistState
-                                                .todolists[index].done,
+                                            value: logic.todolistState.todolists[index].done,
                                             onChanged: (value) {
                                               logic.changeDone(index, value);
                                             },
@@ -87,8 +91,7 @@ class TodolistScreenState extends State<TodolistScreen> {
                                   Flexible(
                                     // ignore: sort_child_properties_last
                                     child: Text(
-                                      logic.todolistState.todolists[index]
-                                          .task, //수정
+                                      logic.todolistState.todolists[index].task, //수정
                                       style: const TextStyle(
                                           color: Colors.black, fontSize: 15),
                                     ),
@@ -101,8 +104,8 @@ class TodolistScreenState extends State<TodolistScreen> {
                                       padding: EdgeInsets.zero,
                                       child: IconButton(
                                         padding: EdgeInsets.zero,
-                                        constraints: BoxConstraints(),
-                                        icon: Icon(Icons.cancel_outlined),
+                                        constraints: const BoxConstraints(),
+                                        icon: const Icon(Icons.cancel_outlined),
                                         color: Colors.black,
                                         iconSize: 15.0,
                                         onPressed: () {
@@ -118,6 +121,64 @@ class TodolistScreenState extends State<TodolistScreen> {
                             );
                           },
                         ));
+                      }),
+                    ),
+
+                    Container(
+                      alignment: Alignment.centerRight,
+                      child: AddButton(onTab: (){
+                        BuildContext dialogContext;
+                        showDialog(
+                          context: context, 
+                          builder: (context) {
+                            dialogContext = context;
+                            return Dialog(
+                              child: SizedBox(
+                                height: 300,
+                                child: Column(
+                                  children: [
+                                    TextField(
+                                      decoration: const InputDecoration(
+                                        hintText: '어떤 일을 하시겠습니까?',
+                                      ),
+                                      controller: inputData,
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: null,
+                                      onChanged: (value) {
+                                        setState(() {
+                                          inputTask = value;
+                                        });
+                                      },
+                                    ),
+
+                                    TextButton(
+                                      child: const Text('추가'),
+                                      onPressed: (){
+                                        if (inputData.text != '') {
+                                          logic.addTodoList(inputTask); 
+                                          Navigator.pop(dialogContext);
+                                          setState(() {
+                                            inputTask = '';
+                                            inputData.text = '';
+                                          });
+                                        } else {
+                                          Fluttertoast.showToast(
+                                            msg: '내용을 입력해주세요.',
+                                            gravity: ToastGravity.CENTER,
+                                            fontSize: 15,
+                                            textColor: Colors.black,
+                                            backgroundColor: const Color.fromARGB(251, 251, 251, 251),
+                                            toastLength: Toast.LENGTH_SHORT
+                                          );
+                                        }
+                                      },
+                                    )
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                        );
                       }),
                     )
                   ]),
