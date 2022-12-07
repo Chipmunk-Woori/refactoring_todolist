@@ -1,5 +1,5 @@
 class Todolist {
-  Todolist({this.done = false, this.task = ""});
+  Todolist({this.done = false, this.task = ''});
 
   final bool done;
   final String task;

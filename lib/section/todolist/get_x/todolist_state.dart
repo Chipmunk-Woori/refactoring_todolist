@@ -5,11 +5,11 @@ class TodolistState {
   TodolistState();
 
   RxList<Todolist> todolists = [
-    Todolist(done: true, task: "할 일_1"),
-    Todolist(done: false, task: "할 일_2"),
-    Todolist(done: false, task: "할 일_3"),
-    Todolist(done: false, task: "할 일_4"),
-    Todolist(done: false, task: "할 일_5")
+    Todolist(done: true, task: '할 일_1'),
+    Todolist(done: false, task: '할 일_2'),
+    Todolist(done: false, task: '할 일_3'),
+    Todolist(done: false, task: '할 일_4'),
+    Todolist(done: false, task: '할 일_5')
   ].obs;
 
   void add(String task) {

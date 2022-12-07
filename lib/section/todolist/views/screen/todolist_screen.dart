@@ -89,17 +89,17 @@ class TodolistScreenState extends State<TodolistScreen> {
                                     ),
                                   ),
                                   Flexible(
-                                    // ignore: sort_child_properties_last
+                                    flex: 6,
+                                    fit: FlexFit.tight,
                                     child: Text(
-                                      logic.todolistState.todolists[index].task, //수정
+                                      logic.todolistState.todolists[index].task,
                                       style: const TextStyle(
                                           color: Colors.black, fontSize: 15),
                                     ),
-                                    flex: 6,
-                                    fit: FlexFit.tight,
                                   ),
                                   Flexible(
-                                    // ignore: sort_child_properties_last
+                                    flex: 1,
+                                    fit: FlexFit.tight,
                                     child: Container(
                                       padding: EdgeInsets.zero,
                                       child: IconButton(
@@ -113,8 +113,6 @@ class TodolistScreenState extends State<TodolistScreen> {
                                         },
                                       ),
                                     ),
-                                    flex: 1,
-                                    fit: FlexFit.tight,
                                   ),
                                 ],
                               ),

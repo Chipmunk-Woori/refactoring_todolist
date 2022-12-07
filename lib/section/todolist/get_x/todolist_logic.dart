@@ -18,7 +18,6 @@ class TodolistLogic extends GetxController {
 
   //check 변경
   void changeDone(int index, value) {
-    todolistState.todolists[index] =
-        todolistState.todolists[index].copyWith(done: value);
+    todolistState.todolists[index] = todolistState.todolists[index].copyWith(done: value);
   }
 }

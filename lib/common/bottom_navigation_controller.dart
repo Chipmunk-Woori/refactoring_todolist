@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:refactoring_todolist/common/assets_manager.dart';
 import 'package:refactoring_todolist/section/todolist/views/screen/todolist_screen.dart';
-import 'package:refactoring_todolist/section/selected_option/views/screen/test_screen.dart';
+import 'package:refactoring_todolist/section/selected_option/views/screen/selected_option_screen.dart';
 import 'package:refactoring_todolist/common/assets_manager.dart';
 import 'package:refactoring_todolist/common/style/text_style.dart';
 
@@ -47,7 +47,7 @@ class BottomNavigationController extends GetxController {
   }
 
   //페이지
-  final List screenWidget = [const TodolistScreen(), const TestScreen()];
+  final List screenWidget = [const TodolistScreen(), const SelectedOptionScreen()];
 
   BottomNavigationBarItem defaultItem(
       {required IconData icon,
