@@ -3,10 +3,10 @@ import 'package:get/get.dart';
 class SelectedOptionState {
   SelectedOptionState();
 
-  RxString selectedOption = '변경 전'.obs;
+  RxInt selectedOption = 3.obs;
   RxList options = ['option_1','option_2'].obs;
 
-  void changeOption(String option) {
-    selectedOption = option as RxString;
+  void changeOption(int index) {
+    selectedOption(index); //반응형 상태 변수 값 변경
   }
 }

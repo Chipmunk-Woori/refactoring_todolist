@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:refactoring_todolist/common/assets_manager.dart';
 import 'package:refactoring_todolist/section/todolist/views/screen/todolist_screen.dart';
 import 'package:refactoring_todolist/section/selected_option/views/screen/selected_option_screen.dart';
-import 'package:refactoring_todolist/common/assets_manager.dart';
 import 'package:refactoring_todolist/common/style/text_style.dart';
 
 class BottomNavigationController extends GetxController {
@@ -13,8 +11,7 @@ class BottomNavigationController extends GetxController {
 
   List<String> navigationBarTitleList = ['할 일', '선택'];
 
-  late List<GlobalKey<NavigatorState>>
-      navigatorKeyList; //late : 값의 초기화를 뒤로 미루지만, null 사용 방지
+  late List<GlobalKey<NavigatorState>> navigatorKeyList; //late : 값의 초기화를 뒤로 미루지만, null 사용 방지
   //Stateful 위젯의 순서나 개수를 변경할 때 Key가 중요한 역할 함.
   //GlobalKey 사용 목적 2가지
   //1.위젯이 상태를 잃지 않으면서 부모를 바꿀 수 있도록 해줌.
@@ -28,7 +25,8 @@ class BottomNavigationController extends GetxController {
   @override
   void onInit() {
     navigatorKeyList = List.generate(
-        screenWidget.length, (index) => GlobalKey<NavigatorState>());
+      screenWidget.length, (index) => GlobalKey<NavigatorState>()
+    );
 
     bottomWidgetList = [
       defaultItem(
@@ -49,11 +47,11 @@ class BottomNavigationController extends GetxController {
   //페이지
   final List screenWidget = [const TodolistScreen(), const SelectedOptionScreen()];
 
-  BottomNavigationBarItem defaultItem(
-      {required IconData icon,
-      required IconData activeIcon,
-      required String label}) {
-    return BottomNavigationBarItem(
+  BottomNavigationBarItem defaultItem({
+    required IconData icon,
+    required IconData activeIcon,
+    required String label}) {
+      return BottomNavigationBarItem(
         label: label,
         icon: Column(
           children: [
@@ -63,8 +61,7 @@ class BottomNavigationController extends GetxController {
             ),
             Text(
               label,
-              // ignore: prefer_const_constructors
-              style: TextStyle(fontSize: fontSize11, color: Colors.white),
+              style: const TextStyle(fontSize: fontSize11, color: Colors.white),
             )
           ],
         ),
@@ -76,11 +73,11 @@ class BottomNavigationController extends GetxController {
             ),
             Text(
               label,
-              // ignore: prefer_const_constructors
-              style: TextStyle(fontSize: fontSize11, color: Colors.white),
+              style: const TextStyle(fontSize: fontSize11, color: Colors.white),
             )
           ],
-        ));
+        )
+      );
   }
 
   Widget get currenPage => screenWidget[currentIndex.value];

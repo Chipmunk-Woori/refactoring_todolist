@@ -1,12 +1,11 @@
 class SelectedOption {
-  SelectedOption(this.options, {this.selectedOption = ''});
+  SelectedOption(this.options, {this.selectedOption = 0});
 
-  final String selectedOption;
+  final int selectedOption;
   final List options;
 
   SelectedOption copyWith({
-    List? option,
-    String? selectedOption
+    int? selectedOption
   }) {
     return SelectedOption(options, selectedOption: selectedOption ?? this.selectedOption);
   }

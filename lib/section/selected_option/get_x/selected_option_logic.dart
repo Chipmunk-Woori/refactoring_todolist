@@ -4,7 +4,7 @@ import 'package:refactoring_todolist/section/selected_option/get_x/selected_opti
 class SelectedOptionLogic extends GetxController {
   final SelectedOptionState selectedOptionState = SelectedOptionState();
 
-  void changeOption(String option) {
-    selectedOptionState.selectedOption = selectedOptionState.selectedOption.copyWith(selectedOption: option);
+  void change(int index) {
+    selectedOptionState.changeOption(index);
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:refactoring_todolist/section/selected_option/get_x/selected_option_logic.dart';
 import 'package:get/get.dart';
+import 'package:refactoring_todolist/section/selected_option/views/screen/pick_screen.dart';
 
 class SelectedOptionScreen extends StatefulWidget {
   const SelectedOptionScreen({super.key});
@@ -15,39 +16,59 @@ class SelectedOptionScreenState extends State<SelectedOptionScreen> {
     super.initState();
   }
 
-  String option = '';
+  void moveToPickScreen (BuildContext context) async {
+    await Navigator.push(context, 
+      MaterialPageRoute(builder: (context) => const PickScreen())
+    );
+  }
+
+  Text showSelectedOption (SelectedOptionLogic controller) {
+    if (controller.selectedOptionState.selectedOption.value < controller.selectedOptionState.options.length ) {
+      return (
+        Text(
+          'Pick : ${controller.selectedOptionState.options[controller.selectedOptionState.selectedOption.value]}', 
+          style: const TextStyle(color: Colors.white, fontSize: 25)
+        )
+      );
+    } else {
+      return (
+        const Text('')
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SelectedOptionLogic());
+
     return Container(
       color: Colors.black,
       width: double.infinity, 
       height: double.infinity,
-      child: GetBuilder<SelectedOptionLogic>(
-        init: SelectedOptionLogic(),
-        builder: (SelectedOptionLogic logic) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('${logic.selectedOptionState.selectedOption}', style: const TextStyle(color: Colors.white, fontSize: 25)),
-              Text('선택한 옵션 : ${logic.selectedOptionState.selectedOption}', style: const TextStyle(color: Colors.white, fontSize: 25)),
+      child: Obx((){
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            showSelectedOption(controller),
 
-              const SizedBox(height: 20),
+            const SizedBox(height: 20),
 
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white, 
-                ),
-                onPressed: (){
-                  logic.selectedOptionState.changeOption('test');
-                }, 
-                child: const Text('Pick an option', style: TextStyle(color: Colors.black))
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.white, 
+              ),
+              onPressed: (){
+                moveToPickScreen(context);
+              }, 
+              child: const Text(
+                'Pick an option', 
+                style: TextStyle(color: Colors.black)
               )
-            ],
-          );
-        }
-      ),
+            )
+          ],
+        );
+      })
     );
   }
 }
